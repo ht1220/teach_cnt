@@ -1,13 +1,520 @@
-body {
-    /***
-      ADD YOUR CUSTOM STYLING HERE. (INSIDE THE body {...} section.)
-      IT WILL TAKE PRECEDENCE OVER THE STYLING IN THE STYLE.CSS FILE.
-   ***/
-    //  background-color: white;
-    //  .content {
-    //   font-size: 14px;
-    //  }
-    //  h1 {
-    //   color: black;
-    //  }
+/* 把颜色用变量记下来，便于以后更改 rgb(0, 112, 192);*/
+
+:root {
+    --Red-color: rgb(252, 246, 1, 0.75);
+    --Orange-color: rgb(255, 158, 13,0.95);
+    --LightBlue-color: rgb(177, 255, 255,0.85);
+    --DarkBlue-color: rgb(179, 153, 255, 0.95);
+    --font-family-preview: 更纱黑体 SC,  Avenir, Avenir Next, var(--default-font), sans-serif;
+    --text-normal: rgb(93, 188, 210); /*笔记内文字颜色，左右窗口鼠标悬浮文字颜色*/
+
+}
+
+
+/*修改标题颜色和字体，字体为微软雅黑加粗*/
+.markdown-preview-view h1,
+.HyperMD-header-1 .cm-header-1,
+.cm-s-obsidian .cm-header-1 {
+    font-family: "Microsoft YaHei", sans-serif;
+    font-weight: bold;
+    color: var(--Red-color);
+    /*text-align: center;  还是不居中显示了，靠左更好看*/
+}
+
+.markdown-preview-view h2,
+.HyperMD-header-2 .cm-header-2,
+.cm-s-obsidian .cm-header-2 {
+    font-family: "Microsoft YaHei", sans-serif;
+    font-weight: bold;
+    color: var(--Orange-color);
+}
+
+.markdown-preview-view h3,
+.HyperMD-header-3 .cm-header-3,
+.cm-s-obsidian .cm-header-3 {
+    font-family: "Microsoft YaHei", sans-serif;
+    font-weight: bold;
+    color: var(--LightBlue-color);
+}
+
+.markdown-preview-view h4,
+.HyperMD-header-4 .cm-header-4,
+.cm-s-obsidian .cm-header-4 {
+    font-family: "Microsoft YaHei", sans-serif;
+    font-weight: bold;
+    color: var(--DarkBlue-color);
+}
+
+.markdown-preview-view h5,
+.HyperMD-header-5 .cm-header-5,
+.cm-s-obsidian .cm-header-5,
+.markdown-preview-view h6,
+.HyperMD-header-6 .cm-header-6,
+.cm-s-obsidian .cm-header-6 {
+    font-family: "Microsoft YaHei", sans-serif;
+    font-weight: bold;
+    color: var(--DarkBlue-color);
+}
+
+
+/* 设置一级标题(居中)，添加分割线*/
+.markdown-preview-view h1::after,
+.HyperMD-header-1 .cm-header-1::after,
+.cm-s-obsidian .cm-header-1::after {
+    content: "";
+    display: block;
+    height: 1.5px;
+    background-color: rgb(200,200,200);
+    margin-top: 8px; /* 调整分割线与标题之间的间距 */
+}
+
+
+/* 将加粗字体样式更改为蓝色 */
+.markdown-preview-view strong,
+div.cm-line span.cm-strong {
+    font-family: "Microsoft YaHei", sans-serif;
+    color: var(--DarkBlue-color);
+    text-decoration: var(--setting-text-bold-style, underline dotted);
+}
+/* 将```中的加粗字体样式更改为蓝色 */
+div p strong {
+    font-family: "Microsoft YaHei", sans-serif;
+    color: var(--DarkBlue-color);
+}
+
+
+/* 修改用==语法高亮的文本 */
+.markdown-preview-view mark,
+.cm-s-obsidian span.cm-formatting-highlight,
+.cm-s-obsidian span.cm-highlight,
+div p mark 
+{
+    font-weight: bold !important;
+/*    font-family: "Microsoft YaHei", sans-serif;*/
+    background-color:rgb(252, 246, 1, 0.49);
+    color: #b8eaff; /* 设置荧光字体的颜色 */
+
+}
+
+
+/* 修改公式字体颜色 */
+mjx-math {
+    color: var(--DarkBlue-color);
+}
+
+
+/* 将有序列表编号改为蓝色，加粗*/
+ol > li::marker,
+.cm-s-obsidian .cm-formatting-list-ol,
+span.cm-formatting.cm-formatting-list.cm-formatting-list-ol {
+    color: var(--LightBlue-color);
+    font-weight: bold;
+}
+
+/***********************/
+/* 编辑和预览模式下文字间距与文字对齐 */
+/***********************/
+.cm-s-obsidian,
+.markdown-preview-view{
+  letter-spacing: .0em;
+  text-align: justify !important;
+  hyphens: auto;
+  color: #5dbcd2;
+  padding-left: 5% !important;
+  padding-right: 5% !important;
+}
+
+
+
+
+.cm-s-obsidian .CodeMirror-line * {
+  letter-spacing: .0em;
+}
+
+/***********************************/
+/* 编辑和预览模式下文件双链前添加图标 */
+/************************************/
+
+/* 引用文件时，文件名前面会出现 “文档” icon */
+.markdown-preview-view a.internal-link::before {
+  margin-right: 4px;
+  margin-left: 2px;
+
+  content: '';
+  background-image: url("data:image/svg+xml,%3Csvg t='1626093724345' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='3856' width='200' height='200'%3E%3Cpath d='M896.5 328.5h-256c-13.3 0-24-10.7-24-24v-256c0-13.3 10.7-24 24-24s24 10.7 24 24v232h232c13.3 0 24 10.7 24 24s-10.7 24-24 24z' fill='%230A59F7' p-id='3857'%3E%3C/path%3E%3Cpath d='M896.5 1000.5h-768c-13.3 0-24-10.7-24-24v-928c0-13.3 10.7-24 24-24h512c6.4 0 12.5 2.5 17 7l256 256c4.5 4.5 7 10.6 7 17v672c0 13.3-10.7 24-24 24z m-744-48h720V314.4L630.6 72.5H152.5v880z' fill='%230A59F7' p-id='3858'%3E%3C/path%3E%3Cpath d='M704.5 792.5h-384c-13.3 0-24-10.7-24-24s10.7-24 24-24h384c13.3 0 24 10.7 24 24s-10.7 24-24 24zM704.5 632.5h-384c-13.3 0-24-10.7-24-24s10.7-24 24-24h384c13.3 0 24 10.7 24 24s-10.7 24-24 24zM704.5 472.5h-384c-13.3 0-24-10.7-24-24s10.7-24 24-24h384c13.3 0 24 10.7 24 24s-10.7 24-24 24zM448.5 312.5h-128c-13.3 0-24-10.7-24-24s10.7-24 24-24h128c13.3 0 24 10.7 24 24s-10.7 24-24 24z' fill='%230A59F7' p-id='3859'%3E%3C/path%3E%3C/svg%3E");
+  background-size: 16px 16px;
+  transform: translate(0, 3px);
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 16.8px;
+  width: 16.33px;
+}
+
+/* 编辑模式下双向链接前面添加 icon  */
+.markdown-source-view.mod-cm6 .cm-hmd-internal-link .cm-underline::before {
+  margin-right: 4px;
+  margin-left: 2px;
+
+  content: '';
+  background-image: url("data:image/svg+xml,%3Csvg t='1626093724345' class='icon' viewBox='0 0 1024 1024' version='1.1' xmlns='http://www.w3.org/2000/svg' p-id='3856' width='200' height='200'%3E%3Cpath d='M896.5 328.5h-256c-13.3 0-24-10.7-24-24v-256c0-13.3 10.7-24 24-24s24 10.7 24 24v232h232c13.3 0 24 10.7 24 24s-10.7 24-24 24z' fill='%230A59F7' p-id='3857'%3E%3C/path%3E%3Cpath d='M896.5 1000.5h-768c-13.3 0-24-10.7-24-24v-928c0-13.3 10.7-24 24-24h512c6.4 0 12.5 2.5 17 7l256 256c4.5 4.5 7 10.6 7 17v672c0 13.3-10.7 24-24 24z m-744-48h720V314.4L630.6 72.5H152.5v880z' fill='%230A59F7' p-id='3858'%3E%3C/path%3E%3Cpath d='M704.5 792.5h-384c-13.3 0-24-10.7-24-24s10.7-24 24-24h384c13.3 0 24 10.7 24 24s-10.7 24-24 24zM704.5 632.5h-384c-13.3 0-24-10.7-24-24s10.7-24 24-24h384c13.3 0 24 10.7 24 24s-10.7 24-24 24zM704.5 472.5h-384c-13.3 0-24-10.7-24-24s10.7-24 24-24h384c13.3 0 24 10.7 24 24s-10.7 24-24 24zM448.5 312.5h-128c-13.3 0-24-10.7-24-24s10.7-24 24-24h128c13.3 0 24 10.7 24 24s-10.7 24-24 24z' fill='%230A59F7' p-id='3859'%3E%3C/path%3E%3C/svg%3E");
+  background-size: 16px 16px;
+  transform: translate(0, 3px);
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 16.8px;
+  width: 16.33px;
+}
+
+/**********************/
+/* links and lists */
+/**********************/
+
+a,
+.internal-link,
+.cm-hmd-internal-link,
+.cm-link,
+.cm-formatting-link
+{
+  color: #d669bc !important;
+  text-decoration: none !important;
+  font-family: var(--font-family-preview) !important;
+}
+
+/* link hover color */
+a:hover,
+.internal-link:hover
+{
+  color: #c9fcfd !important;
+  text-decoration: none !important;
+}
+
+
+/* URL链接的字体为斜体 */
+a:not(.internal-link) {
+  font-style: italic;
+}
+
+/* 修改URL链接后面的 icon */
+.external-link {
+  background-position: center right;
+  background-repeat: no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg height='200px' width='200px' version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 512 512' xml:space='preserve' fill='%23000000'%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0'%3E%3C/g%3E%3Cg id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Cpath style='fill:%2361a8ff;' d='M5.565,256c0,138.311,112.124,250.435,250.435,250.435L278.261,256L256,5.565 C117.689,5.565,5.565,117.689,5.565,256z'%3E%3C/path%3E%3Cpath style='fill:%230a59f7;' d='M256,5.565v500.87c138.311,0,250.435-112.124,250.435-250.435S394.311,5.565,256,5.565z'%3E%3C/path%3E%3Cpath style='fill:%2361a8ff;' d='M511.447,239.304C503.199,111.226,400.775,8.804,272.696,0.557v1.611C267.231,0.742,261.659,0,256,0 v33.391c9.165,0,18.672,4.112,28.258,12.22c11.603,9.816,22.802,25.136,32.386,44.302c1.945,3.889,3.813,7.907,5.604,12.048 c-21.359,6.147-43.641,9.343-66.248,9.343v33.391c26.531,0,52.667-3.864,77.669-11.286c2.867,9.502,5.406,19.465,7.603,29.853 c5.119,24.208,8.147,49.719,9.047,76.042H256v33.391h94.318c-0.899,26.323-3.927,51.836-9.047,76.042 c-2.197,10.388-4.735,20.35-7.602,29.851c-25.001-7.422-51.139-11.284-77.669-11.284v33.391c22.607,0,44.888,3.198,66.247,9.345 c-1.792,4.139-3.66,8.158-5.604,12.045c-9.584,19.168-20.783,34.487-32.386,44.302c-9.584,8.109-19.092,12.22-28.257,12.22V512 c5.659,0,11.231-0.742,16.696-2.167v1.611c128.079-8.248,230.504-110.67,238.751-238.748H512v-33.391H511.447z M328.889,45.555 c19.655,6.79,38.282,16.345,55.403,28.469c-9.825,6.243-20.07,11.74-30.649,16.466C346.414,73.449,338.09,58.327,328.889,45.555z M365.062,121.948c16.076-7.014,31.496-15.58,46.022-25.63c0.777,0.755,1.557,1.506,2.324,2.273 c38.086,38.085,60.671,87.541,64.588,140.712h-94.274C382.343,196.46,375.698,156.488,365.062,121.948z M353.643,421.51 c10.578,4.727,20.826,10.221,30.651,16.464c-17.122,12.126-35.749,21.682-55.405,28.472 C338.09,453.673,346.414,438.551,353.643,421.51z M413.408,413.408c-0.768,0.768-1.547,1.519-2.324,2.274 c-14.526-10.051-29.946-18.617-46.022-25.631c10.636-34.54,17.281-74.512,18.66-117.356h94.274 C474.079,325.867,451.494,375.323,413.408,413.408z'%3E%3C/path%3E%3Cpath style='fill:%23dbe4f0;' d='M256,0C120.226,0,9.159,105.704,0.557,239.304H0v33.391h0.557C9.159,406.296,120.226,512,256,512 c5.611,0,11.175-0.2,16.696-0.557v-33.448V34.005V0.557C267.175,0.2,261.611,0,256,0z M227.742,466.389 c-11.602-9.816-22.802-25.136-32.385-44.302c-1.944-3.889-3.812-7.907-5.604-12.046c16.079-4.628,32.682-7.575,49.553-8.751v72.951 C235.474,472.277,231.614,469.665,227.742,466.389z M183.111,466.445c-19.655-6.79-38.281-16.345-55.402-28.469 c9.825-6.243,20.07-11.74,30.648-16.466C165.586,438.551,173.91,453.673,183.111,466.445z M178.328,378.586 c-2.867-9.5-5.405-19.462-7.601-29.847c-5.119-24.208-8.147-49.719-9.047-76.042h77.624v95.123 C218.515,369.09,198.068,372.726,178.328,378.586z M161.682,239.304c0.899-26.323,3.927-51.836,9.047-76.042 c2.196-10.386,4.734-20.345,7.6-29.844c19.739,5.86,40.186,9.495,60.976,10.765v95.121H161.682z M189.749,101.966 c1.792-4.142,3.661-8.162,5.606-12.052c9.584-19.168,20.783-34.487,32.385-44.302c3.872-3.276,7.732-5.888,11.562-7.851v72.951 C222.434,109.536,205.83,106.594,189.749,101.966z M158.356,90.495c-10.577-4.726-20.817-10.231-30.642-16.474 c17.12-12.123,35.744-21.678,55.397-28.466C173.909,58.328,165.585,73.451,158.356,90.495z M98.592,98.592 c0.77-0.77,1.553-1.524,2.333-2.282c14.526,10.05,29.935,18.635,46.011,25.648c-10.634,34.537-17.278,74.505-18.658,117.346H34.005 C37.921,186.133,60.506,136.677,98.592,98.592z M34.005,272.696h94.274c1.379,42.842,8.024,82.813,18.659,117.351 c-16.076,7.014-31.491,15.588-46.018,25.638c-0.778-0.756-1.559-1.507-2.327-2.276C60.506,375.323,37.921,325.867,34.005,272.696z'%3E%3C/path%3E%3C/g%3E%3C/svg%3E");
+  background-size: 14px;
+  padding-right: 17px;
+  padding-bottom: 3px;
+}
+
+/*无序列表和有序列表在预览状态下的设置*/
+
+/* ur li 标签中添加的竖线与文字居中对齐 */
+.markdown-rendered.show-indentation-guide li>ol::before, .markdown-rendered.show-indentation-guide li>ul::before {
+  left: -16px;
+  border: 0.1px solid #d4edda; /*竖线的大小与颜色*/
+}
+
+/* 编辑状态下 ur li 旁边竖线的位置和大小 */
+.cm-hmd-list-indent, ul ul::before, ol ol::before {
+  left: 16px;
+  border-left: 1px solid #d4edda; /*竖线的大小与颜色*/
+  position: relative; 
+}
+
+
+
+/* ur list前的层级符号变化*/
+:is(.cm-formatting-list-ul, .markdown-rendered ul > li) > .list-bullet::after {
+  border: 1px solid var(--list-marker-color);
+}
+:is(
+    ul:not(li > ul) > li > ul > li,
+    ul:not(li > ul) > li > ul > li > ul > li > ul > li,
+    ul:not(li > ul) > li > ul > li > ul > li > ul > li > ul > li > ul > li,
+    ul:not(li > ul)
+      > li
+      > ul
+      > li
+      > ul
+      > li
+      > ul
+      > li
+      > ul
+      > li
+      > ul
+      > li
+      ul
+      > li
+      > ul
+      > li
+  )
+  > .list-bullet::after,
+:is(
+    .HyperMD-list-line-2,
+    .HyperMD-list-line-4,
+    .HyperMD-list-line-6,
+    .HyperMD-list-line-8
+  )
+  .cm-formatting-list-ul
+  > .list-bullet::after {
+  background-color: transparent;
+}
+
+
+/* 任务列表中添加的竖线与选框对齐 */
+.markdown-rendered.show-indentation-guide li.task-list-item>ol::before, .markdown-rendered.show-indentation-guide li.task-list-item>ul::before {
+  left: -16px; 
+}
+
+
+/* ur li 黑色圆点与文字对齐 */
+.markdown-preview-view ul > li:not(.task-list-item)::before {
+  margin-top: 15px;
+}
+
+/**********************/
+/* 分割线 */
+/**********************/
+
+.theme-dark .markdown-preview-view hr {
+  border-color: var(--text-normal);
+}
+
+/**********************************/
+/* 左侧栏文件夹标题变成大写、加粗 */
+/**********************************/
+.nav-folder-title {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/*************************************/
+/* 字体加粗、斜体、高亮；图像大小自适应 */
+/*************************************/
+
+/* for preview*/
+strong {
+
+  color: rgb(179, 153, 255, 0.95);/*  #26aaff;*/
+  font-weight: 900;
+}
+
+
+em {
+  color: #b8b894;
+}
+
+/* embedded images */
+img
+{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+s {
+    color: rgb(252, 246, 1, 0.45);
+}
+
+
+/* for editor */
+.cm-strong {
+  color: rgb(179, 153, 255, 0.95);
+  font-weight: 900;
+}
+
+.cm-em {
+  color: #b8b894;
+}
+
+/**********************/
+/* 字体的高亮 */
+/**********************/
+
+/*控制外围的高亮范围*/
+mark{
+  background-color: rgb(252, 246, 1, 0.45);!important;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+
+/*编辑状态下的高亮*/
+.cm-s-obsidian span.cm-formatting-highlight,
+.cm-s-obsidian span.cm-highlight{
+    color: #b8eaff;
+    font-weight: 500;
+    background-color: rgb(252, 246, 1, 0.49);
+}
+
+/*预览状态下的高亮*/
+.markdown-preview-view mark {
+    color: #b8eaff;
+    font-weight: 600;
+}
+
+
+/***********************/
+/* 编辑和预览模式下文字间距与文字对齐 */
+/***********************/
+
+
+.markdown-preview-view
+{
+  font-family: var(--font-family-preview);
+  font-size: 17px;
+  color: #5dbcd2;
+
+}
+
+.mod-single-child .markdown-preview-view
+{
+  font-family: var(--font-family-preview);
+  font-size: 17px;
+  color: #5dbcd2;
+
+}
+
+/* EDITOR Text (outside of headings and code) */
+
+.cm-s-obsidian
+{
+  font-family: var(--font-family-editor);
+  font-size: 17px;
+  color: #5dbcd2;
+}
+
+.mod-single-child .cm-s-obsidian
+{
+  font-family: var(--font-family-editor);
+  font-size: 17px;
+  color: #5dbcd2;
+
+}
+
+/***************************************/
+/*                 Code                */
+/*代码模块如：`XXXX`或```XXXXXX```*/
+/***************************************/
+
+/* code blocks in preview */
+/* 独立的注释块，内部填充的颜色 */
+pre code
+{
+  padding: 6px !important;
+  line-height: normal;
+  display: block;
+  background-color: var(--pre-code) !important;
+}
+
+/* 独立的注释块，边框的大小 */
+.markdown-preview-view pre
+{
+  padding: 0px !important;
+}
+
+/*--inline-code: var(--setting-code-inline, var(--color-red));
+--color-red: rgba(var(--color-red-rgb), var(--color-opacity)) !important;
+--color-red-rgb: 210,75,75 !important;*/
+
+/* 嵌入行内的注释块in-line code for editor and preview and code block for editor*/
+code,
+.cm-inline-code
+{
+/*  background-color: #272524d9 !important;*/
+  background-color: #110024d9 !important; /* 文字的背景颜色*/
+  color: var(--text-muted) !important;
+  bottom: 0px !important;
+  font-weight: bold;
+}
+
+/* code and code blocks for preview */
+.markdown-preview-view code
+{
+  font-size: 16px; /* 注释块内的字体大小*/
+}
+
+
+/***************************************/
+/*       嵌入的markdown页面             */
+/***************************************/
+
+
+/*嵌入的markdown页面边距排版*/
+.markdown-embed {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    background-color: #2f253f;
+    border-radius:10px;
+    box-shadow: 0 0 0.15em #cc9900;
+}
+
+.markdown-preview-view .markdown-embed, .markdown-preview-view .file-embed {
+/*    border-top: .25px solid #b3a14b;
+    border-bottom: .25px solid #b3a14b;*/
+    border-top: .25px ;
+    border-bottom: .25px ;
+    padding: 0px 0;
+    margin: 10px 0;
+}
+
+/*去掉嵌入markdown页面的标题*/
+.markdown-embed-title { display:none; }
+.markdown-preview-view .markdown-embed-content>:first-child { margin-top: 0; }
+.markdown-preview-view .markdown-embed-content>:last-child { margin-bottom: 0; }
+
+
+/*修改嵌入markdown页面的链接图标*/
+.markdown-embed-link {
+color: #5bb983 !important;
+right: 2px !important;
+}
+.markdown-embed-link:hover {
+color: #38dc7f !important;
+}
+
+
+/*全文霞鹜文楷*/
+
+@import url('https://cdn.staticfile.org/lxgw-wenkai-screen-webfont/1.6.0/lxgwwenkaiscreen.css');
+
+{
+  /* Screen version */
+  font-family: "LXGW WenKai Screen", sans-serif;
+/*  font-weight: bold;*/
+}
+
+
+/* 块引用的格式 */
+.markdown-preview-view blockquote {
+  border-color: #1abf7f !important;
+  border-left-width: 2px !important;
+  background-image: linear-gradient(
+    to right,
+    rgba(26, 191, 127, 0.1),
+    rgba(26, 191, 127, 0)
+  );
+  font-size: 1em;
+  line-height: 1.5em;
+  margin: auto;
+  margin-bottom: 2px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-right: 2px;
+  width: 100%;
+}
+
+.markdown-preview-view blockquote {
+  position: relative;
+}
+
+.markdown-preview-view blockquote:after {
+  content: "\275D";
+  position: absolute;
+  top: 0.4em;
+  left: -1em;
+  font-size: 2.5em;
+  color: #1abf7f;
 }
